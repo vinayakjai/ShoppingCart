@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ShoppingDispatchContext } from "../providers/ShoppingContext";
 
-function Input({ handleAddItem }) {
+function Input() {
   let [input, setInput] = useState("");
+
+  let dispatch = useContext(ShoppingDispatchContext);
 
   return (
     <>
@@ -13,7 +16,10 @@ function Input({ handleAddItem }) {
       />
       <button
         onClick={() => {
-          handleAddItem(input);
+          dispatch({
+            type: "addItem",
+            payload: input,
+          });
           setInput("");
         }}
       >

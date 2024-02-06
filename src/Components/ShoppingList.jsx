@@ -2,36 +2,22 @@ import { useReducer } from "react";
 import ItemList from "./Itemlists";
 import Input from "./input";
 import itemReducer from "../reducers/itemreducer";
+import {
+  ShoppingDispatchContext,
+  ShoppingItemsContext,
+} from "../providers/ShoppingContext";
 
 function ShoppingList() {
-  function handleAddItem(itemname) {
-    dispatch({
-      type: "addItem",
-      payload: itemname,
-    });
-  }
-
-  function handleAddQunatity(itemId) {
-    dispatch({
-      type: "incrementQuantity",
-      payload: itemId,
-    });
-  }
-  function handleDecrementQunatity(itemId) {
-    dispatch({
-      type: "decrementQuantity",
-      payload: itemId,
-    });
-  }
   let [shoppingItems, dispatch] = useReducer(itemReducer, []);
+
   return (
     <>
-      <Input handleAddItem={handleAddItem} />
-      <ItemList
-        shoppingItems={shoppingItems}
-        addQuantity={handleAddQunatity}
-        decrementQuantity={handleDecrementQunatity}
-      />
+      <ShoppingItemsContext.Provider value={shoppingItems}>
+        <ShoppingDispatchContext.Provider value={dispatch}>
+          <Input />
+          <ItemList />
+        </ShoppingDispatchContext.Provider>
+      </ShoppingItemsContext.Provider>
     </>
   );
 }
