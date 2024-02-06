@@ -1,11 +1,14 @@
 import Item from "./Item";
 
-function ItemList({ shoppingItems }) {
+function ItemList({ shoppingItems, addQuantity, decrementQuantity }) {
   return (
     <>
-      {
-      shoppingItems.map((item) => (
-        <Item ItemName={item.name} key={item.id} quantity={item.quantity} />
+      {shoppingItems.map((item) => (
+        <div key={item.id} style={{ display: "flex", gap: "2rem" }}>
+          <button onClick={() => addQuantity(item.id)}>+</button>
+          <Item ItemName={item.name} quantity={item.quantity} />
+          <button onClick={() => decrementQuantity(item.id)}>-</button>
+        </div>
       ))}
     </>
   );

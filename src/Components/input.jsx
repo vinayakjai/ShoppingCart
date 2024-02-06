@@ -1,11 +1,26 @@
-function Input(){
-    return (
-        <>
+import { useState } from "react";
 
-        <input type="enter item here"/>
-        <button>add</button>
-        </>
-    )
+function Input({ handleAddItem }) {
+  let [input, setInput] = useState("");
+
+  return (
+    <>
+      <input
+        placeholder="enter item here"
+        type="text"
+        onChange={(e) => setInput(e.target.value)}
+        value={input}
+      />
+      <button
+        onClick={() => {
+          handleAddItem(input);
+          setInput("");
+        }}
+      >
+        add
+      </button>
+    </>
+  );
 }
 
 export default Input;
